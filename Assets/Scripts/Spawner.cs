@@ -12,14 +12,8 @@ public class Spawner : MonoBehaviour {
 	public GameObject powerUpPrefab;
 	public GameObject enemyPrefab;
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (Random.value * 100 < healthSpawnPercentage) {
 			Instantiate(healthPrefab, new Vector3(Random.value * 20 - 10, 0, Random.value * 20 - 10), Quaternion.identity);
