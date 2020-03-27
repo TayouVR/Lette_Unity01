@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour {
 		//if (healthUI == null) healthUI = GameObject.Find("healthValue").GetComponent<Text>();
 	}
 
-	public void SetHealthUi()
+	private void SetHealthUi()
 	{
 		if (health >= maxHeath) health = 100;
 
@@ -44,14 +44,14 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	private void FixedUpdate()
 	{
-		if (randomMovement) {
-			_rigidbody.AddForce(UnityEngine.Random.value * 2 - 1, 0.0f, UnityEngine.Random.value * 2 - 1);
-		} else {
-			_agent.destination = goal.position; 
-		}
 		if (health <= 0) {
 			Destroy(this.gameObject.transform.parent.gameObject);
 		}
+		
+		_agent.destination = goal.position; 
+		/*if (randomMovement) {
+			_rigidbody.AddForce(UnityEngine.Random.value * 2 - 1, 0.0f, UnityEngine.Random.value * 2 - 1);
+		}*/
 	}
 
 	private void OnCollisionEnter(Collision other)
