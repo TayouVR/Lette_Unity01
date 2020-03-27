@@ -17,10 +17,11 @@ public class PositionOffset : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-		if (!keepOffset)	{
-			gameobject.transform.position = new Vector3(this.transform.position.x, gameobject.transform.position.y, this.transform.position.z);
+	    var position = this.transform.position;
+		if (!keepOffset) {
+			gameobject.transform.position = new Vector3(position.x, gameobject.transform.position.y, position.z);
 		} else {
-			gameobject.transform.position = new Vector3(this.transform.position.x + offset.x, this.transform.position.y + offset.y, this.transform.position.z + offset.z);
+			gameobject.transform.position = new Vector3(this.transform.position.x + offset.x, position.y + offset.y, position.z + offset.z);
 		}
     }
 }
