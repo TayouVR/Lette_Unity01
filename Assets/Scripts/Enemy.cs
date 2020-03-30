@@ -13,16 +13,15 @@ public class Enemy : MonoBehaviour {
 	public GameObject healthBar;
 	public bool randomMovement;
 	public Transform goal;
+	public NavMeshAgent agent;
 	private Image _healthBarFill;
 	private Text _healthText;
-	private NavMeshAgent _agent;
 	private Rigidbody _rigidbody;
 
 	// Start is called before the first frame update
 	private void Start()
 	{
 		_rigidbody = this.GetComponent<Rigidbody>();
-		_agent = GetComponent<NavMeshAgent>();
 		_healthBarFill = healthBar.transform.GetChild(0).GetComponent<Image>();
 		_healthText = healthBar.GetComponentInChildren<Text>();
 		//if (healthUI == null) healthUI = GameObject.Find("healthValue").GetComponent<Text>();
@@ -39,6 +38,7 @@ public class Enemy : MonoBehaviour {
 	private void Update()
 	{
 		SetHealthUi();
+		//agent.SetDestination(goal.position);
 	}
 
 	// Update is called once per frame
@@ -47,11 +47,9 @@ public class Enemy : MonoBehaviour {
 		if (health <= 0) {
 			Destroy(this.gameObject.transform.parent.gameObject);
 		}
-		
-		_agent.destination = goal.position; 
-		/*if (randomMovement) {
+		if (randomMovement) {
 			_rigidbody.AddForce(UnityEngine.Random.value * 2 - 1, 0.0f, UnityEngine.Random.value * 2 - 1);
-		}*/
+		}
 	}
 
 	private void OnCollisionEnter(Collision other)

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 	public bool showDebugRay;
 
 	private bool _isTouchingSomething;
-	private Vector3 _somethingDirection;
+	private Vector3 _jumpDirection;
 #pragma warning disable CS0108 // Element blendet vererbte Element aus; fehlendes 'new'-Schlüsselwort
 	private Rigidbody _rigidbody;
 #pragma warning restore CS0108 // Element blendet vererbte Element aus; fehlendes 'new'-Schlüsselwort
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
     {
 		_rigidbody.AddForce(Input.GetAxis("Horizontal") * 2, 0.0f, Input.GetAxis("Vertical") * 2);
 		if (_isTouchingSomething) {
-			_rigidbody.AddForce(_somethingDirection * Input.GetAxis("Jump"));
+			_rigidbody.AddForce(_jumpDirection * Input.GetAxis("Jump"));
 		}
 	}
 
@@ -40,10 +40,10 @@ public class Player : MonoBehaviour {
 	private void OnCollisionStay(Collision collision)
 	{
 		Vector3 direction = (transform.position - collision.contacts[0].point);
-		_somethingDirection = new Vector3(direction.x * jumpForce, direction.y * jumpForce + upIncrease, direction.z * jumpForce);
+		_jumpDirection = new Vector3(direction.x * jumpForce, direction.y * jumpForce + upIncrease, direction.z * jumpForce);
 		if (showDebugRay) {
-			Debug.DrawRay(transform.position, _somethingDirection, Color.red, 10);
-			Debug.Log(_somethingDirection);
+			Debug.DrawRay(transform.position, _jumpDirection, Color.red, 10);
+			Debug.Log(_jumpDirection);
 		}
 	}
 }
