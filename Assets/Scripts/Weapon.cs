@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 	public Transform rotator;
@@ -20,13 +17,12 @@ public class Weapon : MonoBehaviour {
 	void Update()
 	{
 		Vector3 mouse = Input.mousePosition;
-		Debug.Log(Input.mousePosition.x - (Screen.width/2));
 		Ray castPoint = Camera.main.ScreenPointToRay(mouse);
-		if (Physics.Raycast(castPoint, out var hit, Mathf.Infinity))
-		{
+		if (Physics.Raycast(castPoint, out var hit, Mathf.Infinity)) {
 			_target = new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z);
 		} else {
-			_target = new Vector3(rotator.position.x + (Input.mousePosition.x - (Screen.width/2)), rotator.position.y,rotator.position.z + (Input.mousePosition.y - (Screen.height/2)));
+			var position = rotator.position;
+			_target = new Vector3(position.x + (mouse.x - Screen.width/2f), position.y,position.z + (mouse.y - Screen.height/2f));
 		}
 		rotator.transform.LookAt(_target, Vector3.up);
 		if (Input.GetButton("Fire1")) {
