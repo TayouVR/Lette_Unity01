@@ -24,7 +24,8 @@ public class Enemy : MonoBehaviour {
 		_rigidbody = this.GetComponent<Rigidbody>();
 		_healthBarFill = healthBar.transform.GetChild(0).GetComponent<Image>();
 		_healthText = healthBar.GetComponentInChildren<Text>();
-		//if (healthUI == null) healthUI = GameObject.Find("healthValue").GetComponent<Text>();
+		if (healthBar == null) healthBar = GameObject.Find("healthValue");
+		if (goal == null) goal = GameObject.Find("Player").transform;
 	}
 
 	private void SetHealthUi()
@@ -38,7 +39,7 @@ public class Enemy : MonoBehaviour {
 	private void Update()
 	{
 		SetHealthUi();
-		//agent.SetDestination(goal.position);
+		agent.SetDestination(goal.position);
 	}
 
 	// Update is called once per frame
