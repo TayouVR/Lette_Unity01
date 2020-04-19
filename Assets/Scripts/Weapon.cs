@@ -5,7 +5,6 @@ public class Weapon : MonoBehaviour {
 	public Transform bulletSpawnpoint;
 	public GameObject bulletPrefab;
 	private Vector3 _target;
-	private GameObject _bulletClone;
 	public float initialBulletForce = 10.0f;
 
 	private void Start()
@@ -26,8 +25,8 @@ public class Weapon : MonoBehaviour {
 		}
 		rotator.transform.LookAt(_target, Vector3.up);
 		if (Input.GetButton("Fire1")) {
-			_bulletClone = Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation);
-			_bulletClone.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, initialBulletForce));
+			Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation)
+				.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, initialBulletForce));
 		}
 	}
 }
