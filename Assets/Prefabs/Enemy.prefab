@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameobject: {fileID: 5294876898750342554}
-  offset: {x: 0, y: 0, z: 0}
-  keepOffset: 0
+  offset: {x: 0, y: 0.5, z: 0}
+  keepOffset: 1
 --- !u!54 &4274525314274975383
 Rigidbody:
   m_ObjectHideFlags: 0
