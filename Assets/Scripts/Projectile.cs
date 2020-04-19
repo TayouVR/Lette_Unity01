@@ -21,11 +21,11 @@ public class Projectile : MonoBehaviour
 	}
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
-		_damage = _rigidbody.velocity.magnitude * damageMultiplier;
-		if (_rigidbody.velocity == new Vector3(0, 0, 0) || this.transform.position.y < -5) {
-			Destroy(this.gameObject);
-		}
+	    _damage = _rigidbody.velocity.magnitude * damageMultiplier;
+	    if (_rigidbody.velocity == new Vector3(0, 0, 0) || this.transform.position.y < -5) {
+		    Destroy(this.gameObject);
+	    }
     }
 }
