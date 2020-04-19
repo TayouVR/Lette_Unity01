@@ -111,8 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHeath: 100
-  healthBar: {fileID: 6326376457824046598}
-  randomMovement: 1
+  healthBar: {fileID: 5294876898750342554}
+  randomMovement: 0
   goal: {fileID: 0}
   agent: {fileID: 0}
 --- !u!114 &5744875730836616411
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameobject: {fileID: 5294876898750342554}
-  offset: {x: 0, y: 0.7, z: 0}
-  keepOffset: 1
+  offset: {x: 0, y: 0, z: 0}
+  keepOffset: 0
 --- !u!54 &4274525314274975383
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -418,12 +418,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baba43aedb6c4534ea9dc0cfe0e33089, type: 3}
---- !u!1 &6326376457824046598 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1973758423330383447, guid: baba43aedb6c4534ea9dc0cfe0e33089,
-    type: 3}
-  m_PrefabInstance: {fileID: 5525915689257658449}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &148361779268996851 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5665784836265551522, guid: baba43aedb6c4534ea9dc0cfe0e33089,
