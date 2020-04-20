@@ -5,5 +5,6 @@ using UnityEngine;
 public enum PickupType {
     Health,
     PowerUp,
-    Ammo
+    Ammo,
+    Collectable
 }

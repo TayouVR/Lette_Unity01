@@ -6,13 +6,19 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
-	private int _health = 40;
+	// Game Manager
+	public GameManager gameManager;
+	
+	// health
 	public float maxHeath = 100;
 	public GameObject healthBar;
+	
 	private Image _healthBarFill;
 	private Text _healthText;
+	private int _health = 40;
 	
 	
+	// movement
 	public float jumpForce = 20.0f;
 	public float upIncrease = 10.0f;
 	public bool showDebugRay;
@@ -72,7 +78,9 @@ public class Player : MonoBehaviour {
 				break;
 			case PickupType.Ammo:
 				break;
-			default:
+			case PickupType.Collectable:
+				gameManager.ItemsCollected++;
+				Destroy(other.gameObject);
 				break;
 		}
 	}
