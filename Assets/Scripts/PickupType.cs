@@ -3,5 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum PickupType {
-    
+    Health,
+    PowerUp,
+    Ammo
 }

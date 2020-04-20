@@ -6,44 +6,44 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
 
-	private int health = 40;
-	public float max_heath = 100;
+	private int _health = 40;
+	public float maxHeath = 100;
 	public GameObject healthBar;
-	private Image healthBarFill;
-	private Text healthText;
+	private Image _healthBarFill;
+	private Text _healthText;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		healthBarFill = healthBar.transform.GetChild(0).GetComponent<Image>();
-		healthText = healthBar.GetComponentInChildren<Text>();
+		_healthBarFill = healthBar.transform.GetChild(0).GetComponent<Image>();
+		_healthText = healthBar.GetComponentInChildren<Text>();
 		//if (healthUI == null) healthUI = GameObject.Find("healthValue").GetComponent<Text>();
 
-		setHealthUI();
+		SetHealthUi();
 	}
 
-	public void setHealthUI() {
-		if (health >= max_heath) health = 100;
+	private void SetHealthUi() {
+		if (_health >= maxHeath) _health = 100;
 
-		healthText.text = String.Format("{0:0.0}", health) + " / " + max_heath;
-		healthBarFill.fillAmount = health / max_heath;
+		_healthText.text = String.Format("{0:0.0}", _health) + " / " + maxHeath;
+		_healthBarFill.fillAmount = _health / maxHeath;
 	}
 
-	public void getDamage(int value) {
-		health -= value;
-		setHealthUI();
+	public void GetDamage(int value) {
+		_health -= value;
+		SetHealthUi();
 	}
 
-	public void heal(int value)
+	public void Heal(int value)
 	{
-		health += value;
-		setHealthUI();
+		_health += value;
+		SetHealthUi();
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.GetComponent<heal>() != null) {
-			heal(other.GetComponent<heal>().healthValue);
+			Heal(other.GetComponent<heal>().healthValue);
 			Destroy(other.gameObject);
 		}
 	}

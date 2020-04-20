@@ -1,9 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
+	private int _health = 40;
+	public float maxHeath = 100;
+	public GameObject healthBar;
+	private Image _healthBarFill;
+	private Text _healthText;
+	
+	
 	public float jumpForce = 20.0f;
 	public float upIncrease = 10.0f;
 	public bool showDebugRay;
@@ -16,14 +25,55 @@ public class Player : MonoBehaviour {
 
 	// Start is called before the first frame update
 	private void Start() {
+		_healthBarFill = healthBar.transform.GetChild(0).GetComponent<Image>();
+		_healthText = healthBar.GetComponentInChildren<Text>();
+		//if (healthUI == null) healthUI = GameObject.Find("healthValue").GetComponent<Text>();
 		_rigidbody = this.GetComponent<Rigidbody>();
+
+		SetHealthUi();
 	}
 
-    // Update is called once per frame
-    private void FixedUpdate() {
+	private void SetHealthUi() {
+		if (_health >= maxHeath) _health = 100;
+
+		_healthText.text = String.Format("{0:0.0}", _health) + " / " + maxHeath;
+		_healthBarFill.fillAmount = _health / maxHeath;
+	}
+
+	public void GetDamage(int value) {
+		_health -= value;
+		SetHealthUi();
+	}
+
+	public void Heal(int value)
+	{
+		_health += value;
+		SetHealthUi();
+	}
+
+	// Update is called once per frame
+	private void FixedUpdate() {
 		_rigidbody.AddForce(Input.GetAxis("Horizontal") * 2, 0.0f, Input.GetAxis("Vertical") * 2);
 		if (_isTouchingSomething) {
 			_rigidbody.AddForce(_jumpDirection * Input.GetAxis("Jump"));
+		}
+	}
+
+	private void OnTriggerEnter(Collider other) {
+		if (other.GetComponent<Pickup>() == null) return;
+		switch (other.GetComponent<Pickup>().pickupType) {
+			case PickupType.Health:
+				if (_health < maxHeath) {
+					Heal(other.GetComponent<Pickup>().value);
+					Destroy(other.gameObject);
+				}
+				break;
+			case PickupType.PowerUp:
+				break;
+			case PickupType.Ammo:
+				break;
+			default:
+				break;
 		}
 	}
 	private void OnCollisionExit(Collision collision) {
