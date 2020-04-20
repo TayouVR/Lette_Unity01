@@ -15,12 +15,12 @@ public class Player : MonoBehaviour {
 #pragma warning restore CS0108 // Element blendet vererbte Element aus; fehlendes 'new'-Schlüsselwort
 
 	// Start is called before the first frame update
-	void Start() {
+	private void Start() {
 		_rigidbody = this.GetComponent<Rigidbody>();
 	}
 
     // Update is called once per frame
-    void FixedUpdate() {
+    private void FixedUpdate() {
 		_rigidbody.AddForce(Input.GetAxis("Horizontal") * 2, 0.0f, Input.GetAxis("Vertical") * 2);
 		if (_isTouchingSomething) {
 			_rigidbody.AddForce(_jumpDirection * Input.GetAxis("Jump"));
