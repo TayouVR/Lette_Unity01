@@ -1,21 +1,21 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour {
+public class Player : Healthable {
 
 	// Game Manager
 	public GameManager gameManager;
 	
 	// health
-	public float maxHeath = 100;
+	public float health = 40;
+	public float maxHealth = 100;
 	public GameObject healthBar;
 	
 	private Image _healthBarFill;
 	private Text _healthText;
-	private int _health = 40;
 	
 	
 	// movement
@@ -25,9 +25,7 @@ public class Player : MonoBehaviour {
 
 	private bool _isTouchingSomething;
 	private Vector3 _jumpDirection;
-#pragma warning disable CS0108 // Element blendet vererbte Element aus; fehlendes 'new'-Schlüsselwort
 	private Rigidbody _rigidbody;
-#pragma warning restore CS0108 // Element blendet vererbte Element aus; fehlendes 'new'-Schlüsselwort
 
 	// Start is called before the first frame update
 	private void Start() {
@@ -39,21 +37,21 @@ public class Player : MonoBehaviour {
 		SetHealthUi();
 	}
 
-	private void SetHealthUi() {
-		if (_health >= maxHeath) _health = 100;
+	public void SetHealthUi() {
+		if (health >= maxHealth) health = maxHealth;
 
-		_healthText.text = String.Format("{0:0.0}", _health) + " / " + maxHeath;
-		_healthBarFill.fillAmount = _health / maxHeath;
+		_healthText.text = String.Format("{0:0.0}", health) + " / " + maxHealth;
+		_healthBarFill.fillAmount = health / maxHealth;
 	}
 
-	public void GetDamage(int value) {
-		_health -= value;
+	public void GetDamage(float value) {
+		health -= value;
 		SetHealthUi();
 	}
 
-	public void Heal(int value)
+	public void Heal(float value)
 	{
-		_health += value;
+		health += value;
 		SetHealthUi();
 	}
 
@@ -63,13 +61,14 @@ public class Player : MonoBehaviour {
 		if (_isTouchingSomething) {
 			_rigidbody.AddForce(_jumpDirection * Input.GetAxis("Jump"));
 		}
+		
 	}
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.GetComponent<Pickup>() == null) return;
 		switch (other.GetComponent<Pickup>().pickupType) {
 			case PickupType.Health:
-				if (_health < maxHeath) {
+				if (health < maxHealth) {
 					Heal(other.GetComponent<Pickup>().value);
 					Destroy(other.gameObject);
 				}

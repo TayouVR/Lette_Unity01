@@ -6,10 +6,10 @@ using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : Healthable {
 
 	public float health = 100;
-	public float maxHeath = 100;
+	public float maxHealth = 100;
 	public GameObject healthBar;
 	public bool randomMovement;
 	public Transform goal;
@@ -30,10 +30,10 @@ public class Enemy : MonoBehaviour {
 
 	private void SetHealthUi()
 	{
-		if (health >= maxHeath) health = 100;
+		if (health >= maxHealth) health = 100;
 
-		_healthText.text = $"{health:0.0}" + " / " + maxHeath;
-		_healthBarFill.fillAmount = health / maxHeath;
+		_healthText.text = $"{health:0.0}" + " / " + maxHealth;
+		_healthBarFill.fillAmount = health / maxHealth;
 	}
 
 	private void Update()
