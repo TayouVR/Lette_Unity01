@@ -1,9 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour {
     
@@ -21,6 +23,24 @@ public class GameManager : MonoBehaviour {
 
     public GameState currentState = 0;
     
+    // Spawns
+    public float healthSpawnPercentage = 0.1f;
+    public GameObject healthPrefab;
+	
+    public float powerUpSpawnPercentage = 0.1f;
+    public GameObject powerUpPrefab;
+	
+    public float enemySpawnPercentage = 0.1f;
+    public GameObject enemyPrefab;
+	
+    public int collectableAmount = 4;
+    public GameObject collectablePrefab;
+    
+    private List<GameObject> _healthPickups = new List<GameObject>();
+    private List<GameObject> _collectables = new List<GameObject>();
+    private List<GameObject> _enemies = new List<GameObject>();
+    private List<GameObject> _powerups = new List<GameObject>();
+    
     // items collected
     private int _itemsCollected;
 
@@ -30,7 +50,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public Text collectableCount;
-    public Spawner spawner;
     
     // Start is called before the first frame update
     void Start()
@@ -139,9 +158,8 @@ public class GameManager : MonoBehaviour {
             case GameState.mainMenu:
                 break;
             case GameState.inGame:
-                Debug.Log(Time.timeScale);
-                collectableCount.text = String.Format("{0:0}", ItemsCollected) + " / " + spawner.collectableAmount;
-                if (ItemsCollected >= spawner.collectableAmount) {
+                collectableCount.text = String.Format("{0:0}", ItemsCollected) + " / " + collectableAmount;
+                if (ItemsCollected >= collectableAmount) {
                     SwitchState(GameState.win);
                 }
                 break;
@@ -149,6 +167,19 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.gameOver:
                 break;
+        }
+    }
+    
+    private void FixedUpdate()
+    {
+        if (Random.value * 100 < healthSpawnPercentage) {
+            _healthPickups.Add(Instantiate(healthPrefab, new Vector3(Random.value * 20 - 10, 0, Random.value * 20 - 10), Quaternion.identity));
+        }
+        if (Random.value * 100 < powerUpSpawnPercentage) {
+            _powerups.Add(Instantiate(powerUpPrefab, new Vector3(Random.value * 20 - 10, 0, Random.value * 20 - 10), Quaternion.identity));
+        }
+        if (Random.value * 100 < enemySpawnPercentage) {
+            _enemies.Add(Instantiate(enemyPrefab, new Vector3(Random.value * 20 - 10, 5, Random.value * 20 - 10), Quaternion.identity));
         }
     }
 }
