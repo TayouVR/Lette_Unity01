@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +46,9 @@ public class Player : Healthable {
 
 	public void GetDamage(float value) {
 		health -= value;
+		if (health <= 0) {
+			gameManager.ToGameOver();
+		} 
 		SetHealthUi();
 	}
 
