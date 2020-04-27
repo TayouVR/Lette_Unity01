@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour {
     public Canvas inGame;
     public Canvas gameOver;
     public Canvas win;
+    public Canvas pause;
+    
+    public Transform spawnpoint;
+    public Player player;
+    
     private Canvas[] _gameStates;
 
     public GameState currentState = 0;
@@ -30,7 +35,8 @@ public class GameManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        _gameStates = new Canvas[]{ mainMenu, inGame, win, gameOver};
+        _gameStates = new Canvas[]{ mainMenu, inGame, win, gameOver, pause};
+        SwitchState(currentState);
     }
 
     public void ToMainMenu() {
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ToInGame() {
+        ResetGame();
         SwitchState(GameState.inGame);
     }
 
@@ -47,6 +54,23 @@ public class GameManager : MonoBehaviour {
 
     public void ToGameOver() {
         SwitchState(GameState.gameOver);
+    }
+    
+    public void ToUnpause() {
+        SwitchState(GameState.inGame);
+    }
+
+    public void ResetGame() {
+        ItemsCollected = 0;
+        DestroyAllSpawnables();
+        for (int i = 0; i < collectableAmount; i++) {
+            _collectables.Add(Instantiate(collectablePrefab, new Vector3(Random.value * 20 - 10, 0, Random.value * 20 - 10), Quaternion.identity));
+        }
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        player.transform.position = spawnpoint.position;
+        player.health = 100;
+        player.SetHealthUi();
     }
 
     public void QuitGame() {
@@ -67,9 +91,6 @@ public class GameManager : MonoBehaviour {
                 currentState = state;
                 _gameStates[1].gameObject.SetActive(true);
                 Time.timeScale = 1;
-                ItemsCollected = 0;
-                Debug.Log("SCENE LOAD" + Time.timeScale);
-                SceneManager.LoadScene(0);
                 break;
             case GameState.win:
                 currentState = state;
@@ -81,12 +102,39 @@ public class GameManager : MonoBehaviour {
                 _gameStates[3].gameObject.SetActive(true);
                 Time.timeScale = 0;
                 break;
+            case GameState.pause:
+                currentState = state;
+                _gameStates[4].gameObject.SetActive(true);
+                Time.timeScale = 0;
+                break;
+        }
+    }
+
+    private void DestroyAllSpawnables() {
+        foreach (var healthPickup in _healthPickups) {
+            Destroy(healthPickup);
+        }
+        foreach (var collectable in _collectables) {
+            Destroy(collectable);
+        }
+        foreach (var enemy in _enemies) {
+            Destroy(enemy);
+        }
+        foreach (var powerup in _powerups) {
+            Destroy(powerup);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Pause")) {
+            if (currentState == GameState.inGame) {
+                SwitchState(GameState.pause);
+            } else if (currentState == GameState.pause) {
+                SwitchState(GameState.inGame);
+            }
+        }
         switch (currentState) {
             case GameState.mainMenu:
                 break;
