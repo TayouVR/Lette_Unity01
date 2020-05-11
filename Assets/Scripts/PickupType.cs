@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum PickupType {
+﻿public enum PickupType {
     Health,
     PowerUp,
     Ammo,
