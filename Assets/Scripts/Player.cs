@@ -8,7 +8,7 @@ public class Player : Healthable {
 	public GameManager gameManager;
 	
 	// health
-	public float health = 40;
+	public float health = 100;
 	public float maxHealth = 100;
 	public GameObject healthBar;
 	

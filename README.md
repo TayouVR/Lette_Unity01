@@ -8,8 +8,9 @@ Contains:
 - Camera being attatched to player via script.
 - weapon bullets instantiated via weapon script with start velocity.
 - bullets despawn on enemy collision or positional inactivity.
-- enemys, power ups and health pickups are instantiated from prefab via Random method in GameManager script.
-- using Havok Physics for more accurate physics calculations
+- enemies, power ups and health pickups are instantiated from prefab via Random method in GameManager script.
+- enemies follow the player and damage it in close proximitry.
+- using Havok Physics for more accurate physics calculations.
 
 
 ## Scripts
