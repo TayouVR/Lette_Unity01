@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour {
     
     //Game States
+    [Header("Game States")]
     public Canvas mainMenu;
     public Canvas inGame;
     public Canvas gameOver;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public GameState currentState = 0;
     
     // Spawns
+    [Header("Spawns")]
     public float healthSpawnPercentage = 0.1f;
     public GameObject healthPrefab;
 	

@@ -50,8 +50,7 @@ public class Player : Healthable {
 		SetHealthUi();
 	}
 
-	public void Heal(float value)
-	{
+	public void Heal(float value) {
 		health += value;
 		SetHealthUi();
 	}

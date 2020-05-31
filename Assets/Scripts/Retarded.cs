@@ -14,14 +14,12 @@ public class Retarded : MonoBehaviour {
 	private Light _light;
 
 	// Start is called before the first frame update
-	void Start()
-	{
+	void Start() {
 		_light = this.GetComponentInChildren<Light>();
 	}
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 		if (randomScale) {
 			this.transform.localScale = new Vector3(Random.value * multiplierX, Random.value * multiplierY, Random.value * multiplierZ);
 		}

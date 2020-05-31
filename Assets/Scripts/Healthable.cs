@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
 public abstract class Healthable : MonoBehaviour {
-    private float health;
-    private float maxHealth;
+    protected float health;
+    protected float maxHealth;
 }

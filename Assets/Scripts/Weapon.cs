@@ -7,14 +7,12 @@ public class Weapon : MonoBehaviour {
 	private Vector3 _target;
 	public float initialBulletForce = 10.0f;
 
-	private void Start()
-	{
+	private void Start() {
 		_target = new Vector3();
 	}
 
 	// Update is called once per frame
-	void Update()
-	{
+	void Update() {
 		Vector3 mouse = Input.mousePosition;
 		Ray castPoint = Camera.main.ScreenPointToRay(mouse);
 		if (Physics.Raycast(castPoint, out var hit, Mathf.Infinity)) {
