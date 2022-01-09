@@ -62,7 +62,7 @@ Contains:
 - despawns after physical inactivity or below respawn height
 
 #### Respawn.cs
-- resets whatever objet its attatched to's height when falling off the map.
+- resets whatever object its attatched to's height when falling off the map.
 
 #### Retarded.cs
 - changes scale and light color on Update randomly
