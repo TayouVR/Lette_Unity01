@@ -1,5 +1,7 @@
 # Lette_Unity01
 
+## This Project was made as a Educational Project. It is not maintained and no new features will be added. 
+
 Practice Unity project for the Training.
 
 Contains:
